@@ -10,6 +10,15 @@ const productSchema = z.object({
 
 type Product = z.infer<typeof productSchema>;
 
+const postSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  body: z.string(),
+  userId: z.number(),
+});
+
+type Post = z.infer<typeof postSchema>;
+
 export default function ApiRequest() {
   useEffect(() => {
     fetch("/api/product")
@@ -25,6 +34,22 @@ export default function ApiRequest() {
 
         // use the validateProduct
         console.log(validateProduct.data.name);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts/1")
+      .then((res) => res.json())
+      .then((post: Post) => {
+        // use Zod to validate post
+        const validatePost = postSchema.safeParse(post);
+
+        if (!validatePost.success) {
+          console.error(validatePost.error);
+          return;
+        }
+
+        console.log(validatePost.data.body);
       });
   }, []);
 
