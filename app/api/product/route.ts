@@ -1,3 +1,4 @@
+import { parsedEnv } from "@/env";
 import { checkoutFormSchema } from "@/lib/validations";
 import { NextResponse } from "next/server";
 
@@ -7,6 +8,8 @@ export async function GET() {
     name: "Fujifilm X-T1",
     price: 100,
   };
+
+  console.log(parsedEnv.DATABASE_URL);
 
   return NextResponse.json(product);
 }
