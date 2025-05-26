@@ -41,7 +41,7 @@ export default function CheckoutForm() {
   });
 
   function onSubmit(values: TFormDataSchema) {
-    console.log(values);
+    console.log(values, "bahog lobot c Nick!");
   }
 
   return (
